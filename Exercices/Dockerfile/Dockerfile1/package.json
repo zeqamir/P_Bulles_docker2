@@ -1,0 +1,15 @@
+{
+  "name": "Challenge Docker Node JS",
+  "version": "1.0.0",
+  "description": "Une simple application node.js, ce package a deux script",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo le test a réussi"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "author": "CSR",
+  "license": "MIT"
+}

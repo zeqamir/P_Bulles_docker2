@@ -1,0 +1,9 @@
+FROM ubuntu:latest
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install nmap iproute2 iputils-ping -y
+
+ENTRYPOINT [ "bash" ]
+
+CMD [ "start" ]
