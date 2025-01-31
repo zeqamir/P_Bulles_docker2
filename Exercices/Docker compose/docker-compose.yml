@@ -1,0 +1,27 @@
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    container_name: telegraph_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_telegraph
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./serveur_mysql/setup_telegraph_db.sql:/docker-entrypoint-initdb.d/1_setup_telegraph_db.sql
+    ports:
+      - "3306:3306"
+
+  php:
+    build:
+      context: .
+      dockerfile: php.Dockerfile
+    container_name: telegraph_php
+    volumes:
+      - ./serveur_php/html:/var/www/html 
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
