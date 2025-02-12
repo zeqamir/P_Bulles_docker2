@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  network-tools:
+    build: .
+    container_name: network-tools
+    network_mode: "host"
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN   # Permet d'utiliser tcpdump et Nmap sans root
+      - NET_RAW     # Autorise l'analyse des paquets bruts
