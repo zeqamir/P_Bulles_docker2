@@ -1,16 +1,29 @@
-version: '3.9'
-
 services:
-  network-tools:
-    build: .
-    container_name: network-tools
-    network_mode: "host"
-    environment:
-      - DISPLAY=${DISPLAY}
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-    stdin_open: true
+  toolkit:
+    build: 
+      context: .
+      dockerfile: toolkit.dockerfile
+    container_name: toolkit
+    networks:
+      - toolkit_network
+    tty: true  # Permet d'avoir un terminal interactif
+    depends_on:
+      - toolkit2
+
+  toolkit2:
+    build:
+      context: .
+      dockerfile: toolkit2.dockerfile
+    container_name: toolkit2
+    networks:
+      - toolkit_network
+    ports:
+      - "22:22"   # SSH
+      - "80:80"   # HTTP
+      - "443:443" # HTTPS
+      - "5201:5201" # iperf3
     tty: true
-    cap_add:
-      - NET_ADMIN   # Permet d'utiliser tcpdump et Nmap sans root
-      - NET_RAW     # Autorise l'analyse des paquets bruts
+
+networks:
+  toolkit_network:
+    driver: bridge
