@@ -17,6 +17,12 @@ services:
     container_name: toolkit2
     networks:
       - toolkit_network
+    cap_add:       
+    - NET_ADMIN       
+    - NET_RAW     
+    security_opt:       
+    - seccomp:unconfined
+    
     ports:
       - "22:22"   # SSH
       - "80:80"   # HTTP
